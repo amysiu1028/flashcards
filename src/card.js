@@ -16,8 +16,13 @@ function evaluateGuess(guess,correctGuess) {
     }
 } 
 
+function createDeck(card) {
+    const cards = [];
+    cards.push(card); //whenever we invoke fx, we'll push card in cards array & return it to add more.
+    return cards;
+}
 module.exports = {
     createCard,
     evaluateGuess,
-
+    createDeck,
 }

@@ -2,7 +2,7 @@ const chai = require('chai');
 //require chai to give us access to assertion library
 const expect = chai.expect;
 
-const { createCard, evaluateGuess } = require('../src/card');
+const { createCard, evaluateGuess, createDeck } = require('../src/card');
 
 describe('card', function() {
   it('should be a function', function() {
@@ -44,6 +44,23 @@ describe('turn', function() {
 
   });
 });
+
+describe('deck',function() {
+  it('should be able to create an array of card objects', function() {
+    const card = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+
+    const cards = createDeck(card);
+
+    expect(cards).to.deep.equal([ {id: 1, question: 'What allows you to define a set of related information using key-value pairs?', answers: ['object', 'array', 'function'], correctAnswer: 'object'} ]);
+  });
+  
+  it('should be able to know how many cards are in the deck', function() {
+    const card = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+    const cards = createDeck(card);
+    expect(cards.length).to.deep.equal(1);
+  });
+});
+
 
 //iteration 2:
 //should create a deck function that returns with an array of card objects
