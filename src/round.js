@@ -1,4 +1,20 @@
+function evaluateGuess(guess,correctGuess) {
+    if (guess === correctGuess) {
+        return "correct!"
+    } else {
+        return "incorrect!"
+    }
+};
 
+function createRound(cards, card) {
+    const round = {
+        deck: cards,
+        currentCard: card,
+        turns: 0,
+        incorrectGuesses: [], 
+    };
+    return round;
+};
 
 function takeTurn(guess, round) {
     // console.log(round, "round")
@@ -33,10 +49,13 @@ function calculatePercentCorrect(round) {
     return percentCorrect;
 }
 
+
 module.exports = {
+    // createCard,
+    evaluateGuess,
+    // createDeck,
     createRound,
     takeTurn,
     calculatePercentCorrect,
     //endRound,
 }
-
