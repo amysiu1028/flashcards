@@ -1,4 +1,6 @@
 const inquirer = require('inquirer');
+//popular node.js module that provides an easy way to create interactive CLI
+//
 const { takeTurn, endRound } = require('./round');
 
 const genList = (round) => {
