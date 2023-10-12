@@ -1,13 +1,11 @@
 const data = require('./data'); //require data from data file
-const prototypeQuestions = data.prototypeData; //access to all data 
-//which is an array
-//start the game 
+const prototypeQuestions = data.prototypeData; //access to all data: an array
+
 const util = require('./util');
 const cardFunctions = require('./card');
 const deckFunctions = require('./deck');
 const roundFunctions = require('./round')
-// console.log(cardFunctions) //object so to access it.
-// console.log(cardFunctions.createCard)
+
 
 function start() {
   // create cards:
@@ -18,7 +16,6 @@ function start() {
 
   // Puts cards in a deck
   const deck = deckFunctions.createDeck(createdCard);
-  // console.log(deck)
 
   //Creates a new round using the deck
   const round = roundFunctions.createRound(deck, createdCard[0]);

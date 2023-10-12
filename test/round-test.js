@@ -7,7 +7,7 @@ const { createRound, takeTurn, calculatePercentCorrect, endRound } = require('..
 const { createDeck } = require('../src/deck');
 // const { evaluateGuess } = require('../src/turns');
 const { createCard } = require('../src/card');
-//import card functions to be able to include lin each individual test.
+//QUESTION WHY ISn't it autopopulating! import card functions to be able to include lin each individual test.
 // import card from '../src/card';
 
 
@@ -142,7 +142,7 @@ it('should create a object for round', function() {
   
       takeTurn('pug',round); //incorrect guess
       let percentCorrect2 =  calculatePercentCorrect(round);
-      expect(percentCorrect2).to.equal('50%');
+      expect(percentCorrect2).to.equal('50%'); //THISSS SHOULD BE 50%?
   
       takeTurn('spleen',round); //incorrect guess
       let percentCorrect3 = calculatePercentCorrect(round);
@@ -157,17 +157,12 @@ it('should create a object for round', function() {
       const deck = createDeck(cards);
       const round = createRound(deck,card);
 
-      // takeTurn('object', round);
-      let updateRound = endRound('object',round); // to end round, we need user's guess info and round
-      expect(updateRound.feedback).to.equal('Round over! You answered 100% of the questions correctly!');
-
+      takeTurn('object', round);
       takeTurn('pug', round);
-      let round2= endRound('pug',round);
-      expect(round2.feedback).to.equal('Round over! You answered 50% of the questions correctly!');
-
       takeTurn('gallbladder',round);
-      let round3 = endRound('gallbladder',round);
-      expect(round3.feedback).to.equal('Round over! You answered 33% of the questions correctly!');
+
+      let roundPhrase = endRound(round);
+      expect(roundPhrase.endround).to.equal('Round over! You answered 67% of the questions correctly!');
     });
 });
   

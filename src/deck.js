@@ -10,5 +10,4 @@ function countCards(deck) {
 module.exports = {
     createDeck,
     countCards
-    // evaluateGuess,
 }

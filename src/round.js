@@ -27,19 +27,12 @@ function takeTurn(guess,round) {
     } else {
         round.feedback = `${guess} is correct!`; 
     }
-  //so every time you invoke function, it'll update the current card to the next card
     if (nextCurrentCardIndex < round.deck.length) {
         let nextCurrentCard = round.deck[nextCurrentCardIndex];
         //let and const - can always look up but not below.
         round.currentCard = nextCurrentCard 
     } else {
         round.currentCard = null 
-        // endRound(guess, round); 
-        // round.percentCorrect = calculatePercentCorrect(round);
-        // return endRound(guess, round); // Call endRound when there are no more cards
-        //when it's over the round.deck.length, you're
-        //setting it to equal to null,so when you call endRound() and try to access it, you get 
-        //"Cannot read properties of null" error.
     }
     return round
 };
@@ -50,22 +43,10 @@ function calculatePercentCorrect(round) {
     return percentCorrect;
 }
 
-//in order to end the round what do we need?
-//round object
-//user's guess?
-//are we updating anything?
-function endRound(guess, round) {
-    if (round.currentCard) { 
-        let guessResult = evaluateGuess(guess,round.currentCard.correctAnswer)
-        if (guessResult === "incorrect!" || guessResult === "correct!") {
-            if (round.turns === 0 && round.turns < round.deck.length) {
-                round.turns++
-            }
-        }
-    } else {
-        // console.log(round.currentCard)
-        let percentCorrect = calculatePercentCorrect(round);
-        round.feedback = `Round over! You answered ${percentCorrect} of the questions correctly!`;
+function endRound(round) {
+    let percentCorrect = calculatePercentCorrect(round);
+    if (!round.currentCard) {
+        round.endround = `Round over! You answered ${percentCorrect} of the questions correctly!`;
     }
     return round
 }

@@ -3,6 +3,7 @@ const expect = chai.expect;
 const { createDeck } = require('../src/deck');
 // const { evaluateGuess } = require('../src/turns');
 const { createCard, evaluateGuess } = require('../src/card')
+//QUESTION WHY THIS IS commented out?
 
 describe('deck',function() {
     it('should be able to create an array of card objects', function() {
