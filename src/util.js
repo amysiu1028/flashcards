@@ -1,10 +1,6 @@
 const inquirer = require('inquirer');
-//popular node.js module that provides an easy way to create interactive CLI
-//
+
 const { takeTurn, endRound } = require('./round');
-//Chris had to add to start game from index.js
-// const game = require('./src/game'); 
-// game.start();
 
 const genList = (round) => {
   let card = round.currentCard;
@@ -27,25 +23,30 @@ const getRound = (round) => {
   return Promise.resolve(round);
 }
 
-const confirmUpdate = (id, round) => {
-  const feedback = takeTurn(id, round);
+const confirmUpdate = (guess, round) => {
+  const feedback = takeTurn(guess, round);
+  // console.log(feedback,"feedback")
   return {
     name: 'feedback',
-    message: `Your answer of ${id} is ${feedback}`
+    // message: `Your answer of ${guess} is ${feedback}`
+    message: `Your answer of ${feedback.feedback}`
   }
 }
 
 async function main(round) {
   const currentRound = await getRound(round);
   const getAnswer = await inquirer.prompt(genList(currentRound));
+  const updatedRound = takeTurn(getAnswer.answers, currentRound);
   const getConfirm = await inquirer.prompt(confirmUpdate(getAnswer.answers, round)); 
   //this gets the input someone puts in terminal and saving it as getAnswer.answers
 
-    if(!round.currentCard) {
-      endRound(round);
+    if(!updatedRound.currentCard) {
+      endRound(getAnswer.answers,updatedRound); 
+      // Pass the guess along with the round object
     } else {
-      main(round);
+      main(updatedRound); // Pass the updated round object to the next iteration
     }
-}
+   } 
+
 
 module.exports.main = main;

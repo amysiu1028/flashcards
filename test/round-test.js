@@ -1,9 +1,12 @@
 const chai = require('chai'); //imports assertion library
 const expect = chai.expect; //gives access to expect syntax from chai assertion
-const { createRound, takeTurn, calculatePercentCorrect } = require('../src/round');
+const { createRound, takeTurn, calculatePercentCorrect, endRound } = require('../src/round');
+// import round from '../src/round';
+
 //import functions in round.js 
 const { createDeck } = require('../src/deck');
-const { createCard, evaluateGuess } = require('../src/card');
+// const { evaluateGuess } = require('../src/turns');
+const { createCard } = require('../src/card');
 //import card functions to be able to include lin each individual test.
 // import card from '../src/card';
 
@@ -93,7 +96,6 @@ it('should create a object for round', function() {
   
       takeTurn('Lex', round);
       expect(round.incorrectGuesses).to.deep.equal([1, 2, 14, 12]);
-      console.log(round.incorrectGuesses, "incorrect guesses")
     });
   
     it('should return feedback when incorrect', function () {
@@ -145,6 +147,27 @@ it('should create a object for round', function() {
       takeTurn('spleen',round); //incorrect guess
       let percentCorrect3 = calculatePercentCorrect(round);
       expect(percentCorrect3).to.equal('33%');
+    });
+
+    it('should be able to tell us when round is over and percent of questions answered correctly', function() {
+      const card = createCard(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
+      const card1 = createCard(2, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+      const card2 = createCard(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
+      const cards = [card,card1,card2];
+      const deck = createDeck(cards);
+      const round = createRound(deck,card);
+
+      // takeTurn('object', round);
+      let updateRound = endRound('object',round); // to end round, we need user's guess info and round
+      expect(updateRound.feedback).to.equal('Round over! You answered 100% of the questions correctly!');
+
+      takeTurn('pug', round);
+      let round2= endRound('pug',round);
+      expect(round2.feedback).to.equal('Round over! You answered 50% of the questions correctly!');
+
+      takeTurn('gallbladder',round);
+      let round3 = endRound('gallbladder',round);
+      expect(round3.feedback).to.equal('Round over! You answered 33% of the questions correctly!');
     });
 });
   

@@ -9,14 +9,14 @@ function evaluateGuess(guess,correctAns) {
 function createRound(deck, card) {
     const round = {
         deck: deck,
-        currentCard: card, //|| deck[0]
+        currentCard: card,
         turns: 0,
         incorrectGuesses: [], 
     };
     return round;
 };
 
-function takeTurn(guess, round) {
+function takeTurn(guess,round) {
     round.turns += 1
     let currentCardIndex = round.deck.findIndex(card => card === round.currentCard);
     let nextCurrentCardIndex = currentCardIndex + 1
@@ -31,9 +31,15 @@ function takeTurn(guess, round) {
     if (nextCurrentCardIndex < round.deck.length) {
         let nextCurrentCard = round.deck[nextCurrentCardIndex];
         //let and const - can always look up but not below.
-        round.currentCard = nextCurrentCard //reassign object value
+        round.currentCard = nextCurrentCard 
     } else {
-        round.currentCard = null
+        round.currentCard = null 
+        // endRound(guess, round); 
+        // round.percentCorrect = calculatePercentCorrect(round);
+        // return endRound(guess, round); // Call endRound when there are no more cards
+        //when it's over the round.deck.length, you're
+        //setting it to equal to null,so when you call endRound() and try to access it, you get 
+        //"Cannot read properties of null" error.
     }
     return round
 };
@@ -41,7 +47,6 @@ function takeTurn(guess, round) {
 function calculatePercentCorrect(round) {
     let calculatePercent = (((round.turns - round.incorrectGuesses.length) / round.turns) * 100).toFixed(0)
     let percentCorrect = `${calculatePercent}%`
-    // console.log(percentCorrect)
     return percentCorrect;
 }
 
@@ -50,27 +55,24 @@ function calculatePercentCorrect(round) {
 //user's guess?
 //are we updating anything?
 function endRound(guess, round) {
-    let guessResult = evaluateGuess(guess,round.currentCard.correctAnswer)
-    // console.log(round.currentCard.correctAnswer,"correctAnswer")
-    // console.log(round.currentCard.correctAnswer,"correctAnswer")
-    
-    if (guessResult === "incorrect!" || guessResult === "correct!") {
-        if (round.turns === 0) {
-            round.turns++
+    if (round.currentCard) { 
+        let guessResult = evaluateGuess(guess,round.currentCard.correctAnswer)
+        if (guessResult === "incorrect!" || guessResult === "correct!") {
+            if (round.turns === 0 && round.turns < round.deck.length) {
+                round.turns++
+            }
         }
-        let percentCorrect = calculatePercentCorrect(round)
-        // round.isOver = true
-        // console.log(`Round over! You answered ${percentCorrect} of the questions correctly!`)
-        return `Round over! You answered ${percentCorrect} of the questions correctly!`;
+    } else {
+        // console.log(round.currentCard)
+        let percentCorrect = calculatePercentCorrect(round);
+        round.feedback = `Round over! You answered ${percentCorrect} of the questions correctly!`;
     }
+    return round
 }
 
 
 module.exports = {
-    // round: round
-    createCard,
     evaluateGuess, //QUESTION... I had to add this here
-    // createDeck,
     createRound,
     takeTurn,
     calculatePercentCorrect,
