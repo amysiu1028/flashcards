@@ -67,12 +67,12 @@ function endRound(guess, round) {
 
 
 module.exports = {
-    round: round
-    // createCard,
-    // evaluateGuess, //QUESTION... I had to add this here
-    // // createDeck,
-    // createRound,
-    // takeTurn,
-    // calculatePercentCorrect,
-    // endRound,
+    // round: round
+    createCard,
+    evaluateGuess, //QUESTION... I had to add this here
+    // createDeck,
+    createRound,
+    takeTurn,
+    calculatePercentCorrect,
+    endRound,
 }

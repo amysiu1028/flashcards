@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 //popular node.js module that provides an easy way to create interactive CLI
 //
-const { takeTurn, endRound } = require('./round.mjs');
+const { takeTurn, endRound } = require('./round');
 //Chris had to add to start game from index.js
 // const game = require('./src/game'); 
 // game.start();
