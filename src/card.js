@@ -20,6 +20,10 @@ function evaluateGuess(guess,correctGuess) {
 //     return cards
 // };
 
+//function countCards(deck) {
+    //deck.length()
+//}
+
 // function createRound(cards, card) {
 //     const round = {
 //         deck: cards,

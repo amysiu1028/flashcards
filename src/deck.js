@@ -5,4 +5,5 @@ function createDeck(cards) {
 
 module.exports = {
     createDeck,
+    // evaluateGuess,
 }
